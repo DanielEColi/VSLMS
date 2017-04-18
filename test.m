@@ -1,0 +1,11 @@
+s = randn(1,5000);
+d1 = filter([0.1,0.2,0.3,0.4,0.4,0.3,0.2,0.1],1,s(1:2500));
+d2 = filter(1,[1,-0.2,0.1],s(2501:5000));
+d(1:2500) = d1;
+d(2501:5000) = d2;
+x = s + n;
+w0 = zeros(1,12);
+h1 = @testFunc; %设置函数句柄
+[y1,e1,w1] = simNLMS(x,d,0.2,w0);
+[y2,e2,mu2,w2] = simVSNLMS(h1,x,d,w0,0,’USERPAR’,[0.2,0.5]);
+[y3,e3,mu3,w3] = simVSNLMS(h1,x,d,w0,0,’USERPAR’,[0.5,0.5]);
